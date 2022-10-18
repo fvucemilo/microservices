@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
-    <artifactId>customer</artifactId>
+    <artifactId>fraud</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -32,5 +32,4 @@
             <scope>runtime</scope>
         </dependency>
     </dependencies>
-
 </project>
