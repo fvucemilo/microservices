@@ -3,6 +3,8 @@ server:
 spring:
   application:
     name: customer
+    title: ${application.title}
+    version: ${application.version}
   datasource:
     username: postgres
     password: postgres
@@ -15,6 +17,8 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
+  zipkin:
+    base-url: http://localhost:9411
 eureka:
   client:
     service-url:
