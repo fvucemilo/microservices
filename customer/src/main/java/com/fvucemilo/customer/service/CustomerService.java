@@ -1,5 +1,6 @@
 package com.fvucemilo.customer.service;
 
+import com.fvucemilo.amqp.config.RabbitMQMessageProducer;
 import com.fvucemilo.clients.fraud.FraudCheckResponse;
 import com.fvucemilo.clients.fraud.FraudClient;
 import com.fvucemilo.clients.notification.NotificationClient;
@@ -17,7 +18,7 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final FraudClient fraudClient;
-    private final NotificationClient notificationClient;
+    private final RabbitMQMessageProducer rabbitMQMessageProducer;
 
     public void registerCustomer(CustomerRegistrationRequestDto request) {
         Customer customer = Customer.builder()
@@ -36,12 +37,16 @@ public class CustomerService {
         }
 
         // todo: send notification
-        notificationClient.sendNotification(
-                new NotificationRequest(
-                        customer.getId(),
-                        customer.getEmail(),
-                        String.format("Hi %s, welcome to Amigoscode...", customer.getFirstName())
-                )
+        NotificationRequest notificationRequest = new NotificationRequest(
+                customer.getId(),
+                customer.getEmail(),
+                String.format("Hi %s, welcome to Amigoscode...",
+                        customer.getFirstName())
+        );
+        rabbitMQMessageProducer.publish(
+                notificationRequest,
+                "internal.exchange",
+                "internal.notification.routing-key"
         );
     }
 }
