@@ -40,8 +40,8 @@ public class CustomerService {
         NotificationRequest notificationRequest = new NotificationRequest(
                 customer.getId(),
                 customer.getEmail(),
-                String.format("Hi %s, welcome to Amigoscode...",
-                        customer.getFirstName())
+                String.format("Hi %s, welcome to Microservices...", customer.getFirstName()
+                )
         );
         rabbitMQMessageProducer.publish(
                 notificationRequest,

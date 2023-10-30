@@ -1,13 +1,14 @@
 package com.fvucemilo.amqp.config;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class RabbitMQMessageProducer {
 
     private final AmqpTemplate amqpTemplate;

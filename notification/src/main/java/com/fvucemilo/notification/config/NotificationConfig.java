@@ -1,6 +1,5 @@
 package com.fvucemilo.notification.config;
 
-import lombok.Getter;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Getter
 @Configuration
 public class NotificationConfig {
 
@@ -24,12 +22,12 @@ public class NotificationConfig {
 
     @Bean
     public TopicExchange internalTopicExchange() {
-        return new TopicExchange(this.internalExchange);
+        return new TopicExchange(internalExchange);
     }
 
     @Bean
     public Queue notificationQueue() {
-        return new Queue(this.notificationQueue);
+        return new Queue(notificationQueue);
     }
 
     @Bean
@@ -37,6 +35,6 @@ public class NotificationConfig {
         return BindingBuilder
                 .bind(notificationQueue())
                 .to(internalTopicExchange())
-                .with(this.internalNotificationRoutingKey);
+                .with(internalNotificationRoutingKey);
     }
 }
